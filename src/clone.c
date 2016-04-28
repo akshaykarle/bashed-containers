@@ -22,6 +22,16 @@ static int child_fn(void *stuff)
   /*   exit(1); */
   /* } */
 
+  /* if (umount("/proc", 0) != 0) { */
+  /*   fprintf(stderr, "couldn't unmount /proc\n"); */
+  /*   exit(1); */
+  /* } */
+
+  /* if (mount("/proc", "/proc", "proc", "") != 0) { */
+  /*   fprintf(stderr, "couldn't mount /proc\n"); */
+  /*   exit(1); */
+  /* } */
+
   if (execvp(args->argv[0], args->argv) != 0) {
     fprintf(stderr, "Command failed");
     exit(1);
