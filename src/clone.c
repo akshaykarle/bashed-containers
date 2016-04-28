@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sched.h>
 #include <sys/wait.h>
 #include <stdbool.h>
@@ -15,6 +16,11 @@ struct clone_args {
 static int child_fn(void *stuff)
 {
   struct clone_args *args = (struct clone_args *)stuff;
+
+  if (sethostname("mycontainer", strlen("mycontainer")) != 0) {
+    fprintf(stderr, "failed to set hostname to mycontainer. Did you create a new UTS namespace?\n");
+    exit(1);
+  }
 
   if (execvp(args->argv[0], args->argv) != 0) {
     fprintf(stderr, "Command failed");
