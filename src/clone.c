@@ -33,7 +33,7 @@ static int child_fn(void *stuff)
   /* } */
 
   if (execvp(args->argv[0], args->argv) != 0) {
-    fprintf(stderr, "Command failed");
+    fprintf(stderr, "Command failed\n");
     exit(1);
   }
 
@@ -42,6 +42,7 @@ static int child_fn(void *stuff)
 
 int main(int argc, char *argv[])
 {
+  //CLONE_NEWNET | CLONE_NEWIPC | CLONE_NEWUTS | CLONE_NEWUSER | CLONE_NEWPID | CLONE_NEWNS
   int flags = SIGCHLD;
   struct clone_args args;
   args.argv = &argv[1];
